@@ -1,0 +1,21 @@
+# Environment & secrets
+.env
+*.env
+db.local.php
+
+# Uploads (user content)
+assets/uploads/*
+!assets/uploads/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

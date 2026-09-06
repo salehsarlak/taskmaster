@@ -98,3 +98,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         <a href="dashboard.php"><img href="sdfsdf.com" src="./assets/logo.png" alt="" class="logo"></a>
         
+        <div class="header-btn">
+
+    
+</a>
+</header>
+
+
+        <!--    Section       -->
+
+    <div class="reg">
+
+
+<!--  Form    -->
+
+    <div class="form-div">
+
+    <form  method="POST"  action="<?php  echo htmlspecialchars($_SERVER["PHP_SELF"]);  ?>">
+               
+    <div class="inp">
+    <h2 class="text">Login to your account</h2>
+     <label for="username"> Username  </label>
+        <input type="text"  id="username"  name="username" value="<?php echo $username; ?>" >
+        <span class="eror"> <?php echo $usernameErr ?> </span>
+          </div>
+
+
+    
+    <div class="inp">
+
+         <label for="password"> Password  </label>
+        <input type="password"  id="password"  name="password">
+        <span class="eror" > <?php echo $passwordErr ?> </span>
+
+    </div>
+        
+    <button class="a" type="submit">login</button>
+
+    <h3 class="regal"> You don't have any account ? <a class= "regals "href="register.php" class="regals">Register</a></h3>
+    
+    
+    </form>
+
+    </div>
+
+
+    </div>
+
+
+
+</body>
+</html>

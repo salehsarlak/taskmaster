@@ -165,11 +165,11 @@ http://localhost/taskmaster/login.php
 
 ## Screenshots
 
-> Add your screenshots here after running the app locally.
+| Dashboard | Settings / Profile |
+|-----------|--------------------|
+| ![Dashboard](docs/dashboard.png) | ![Settings](docs/settings.png) |
 
-| Login | Dashboard | Settings |
-|-------|-----------|----------|
-| ![Login](docs/login.png) | ![Dashboard](docs/dashboard.png) | ![Settings](docs/settings.png) |
+*Clean modern UI with sidebar navigation, task filters (All / Today / Upcoming / Completed), search, and profile management.*
 
 ---
 

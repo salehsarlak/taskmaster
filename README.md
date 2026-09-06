@@ -2,13 +2,13 @@
 
 <div align="center">
 
-![TaskMaster](assets/logo.png)
-
 **A clean, modern PHP & MySQL task manager with authentication, filters, search, and profile settings.**
 
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![MySQL](https://img.shields.io/badge/MySQL-5.7%2B-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
+**🔗 Live Demo (Landing Page):** [taskmaster-tarhfam.vercel.app](https://taskmaster-tarhfam.vercel.app)
 
 </div>
 
@@ -165,11 +165,19 @@ http://localhost/taskmaster/login.php
 
 ## Screenshots
 
-| Dashboard | Settings / Profile |
-|-----------|--------------------|
-| ![Dashboard](docs/dashboard.png) | ![Settings](docs/settings.png) |
+| Dashboard | Add Task | Settings / Profile |
+|-----------|----------|--------------------|
+| ![Dashboard](https://ciijvrewzjphofmecpnj.supabase.co/storage/v1/object/public/IMAGES/screencapture-localhost-todo-mannager-dashboard-php-2026-09-06-09_46_39.png) | ![Add Task](https://ciijvrewzjphofmecpnj.supabase.co/storage/v1/object/public/IMAGES/screencapture-localhost-todo-mannager-add-php-2026-09-06-09_46_48.png) | ![Settings](https://ciijvrewzjphofmecpnj.supabase.co/storage/v1/object/public/IMAGES/screencapture-localhost-todo-mannager-settings-php-2026-09-06-09_41_59.png) |
 
 *Clean modern UI with sidebar navigation, task filters (All / Today / Upcoming / Completed), search, and profile management.*
+
+---
+
+## Live Demo
+
+A beautiful landing page showcasing the project is available at:
+
+**https://taskmaster-tarhfam.vercel.app**
 
 ---
 

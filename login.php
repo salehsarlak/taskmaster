@@ -119,31 +119,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="inp">
     <h2 class="text">Login to your account</h2>
      <label for="username"> Username  </label>
-        <input type="text"  id="username"  name="username" value="<?php echo $username; ?>" >
-        <span class="eror"> <?php echo $usernameErr ?> </span>
-          </div>
+        <input type="text"  id="username"  name="username" value="<?php echo $username;  ?>">
+         <span class="error"> <?php echo $usernameErr;  ?> </span>
+
+     <label for="password"> Password </label>
+        <input type="password"  id="password"  name="password" value="<?php echo $password;  ?>">
+         <span class="error"> <?php echo $passwordErr;  ?> </span>
 
 
-    
-    <div class="inp">
+     <input type="submit" name="submit" value="Login" class="sub">
 
-         <label for="password"> Password  </label>
-        <input type="password"  id="password"  name="password">
-        <span class="eror" > <?php echo $passwordErr ?> </span>
+     <p class="acc">Don't have an account? <a href="register.php">Register</a></p>
 
-    </div>
-        
-    <button class="a" type="submit">login</button>
+     </div>
 
-    <h3 class="regal"> You don't have any account ? <a class= "regals "href="register.php" class="regals">Register</a></h3>
-    
-    
+
+
     </form>
 
     </div>
 
 
+
+
+
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

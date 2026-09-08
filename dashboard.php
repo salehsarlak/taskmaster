@@ -49,49 +49,81 @@ if ($filter === "all"){
         $stmt = $conn ->prepare("SELECT * FROM tasks WHERE user_id = ? AND (title LIKE ? OR description LIKE ?)");
         $stmt ->bind_param("iss" , $user_id , $searchTerm , $searchTerm);
     }
-} elseif ($filter === "today") {
-    if($search === ""){
+    }
+  
+    
+    
+    
+    
+    elseif ($filter === "today") {
+    
+
+        if($search === ""){
             $stmt = $conn->prepare("SELECT * FROM tasks WHERE user_id = ? AND DATE(due_date) = CURDATE()");
             $stmt->bind_param("i" , $user_id);
         }else{
                 $searchTerm = "%" . $search . "%";
                 $stmt = $conn->prepare("SELECT * FROM tasks WHERE user_id = ? AND DATE(due_date) = CURDATE() AND (title LIKE ? OR description LIKE ?)");
                 $stmt->bind_param("iss" , $user_id , $searchTerm , $searchTerm);
-            }
-} elseif ($filter === "upcoming"){
+        }
+
+
+}
+elseif ($filter === "upcoming"){
+
         if($search === ""){
         $stmt = $conn->prepare("SELECT * FROM tasks WHERE user_id = ? AND DATE(due_date) > CURDATE()");
-        $stmt->bind_param("i" , $user_id);
+        $stmt ->bind_param("i" , $user_id);
         }else{
+
             $searchTerm = "%" . $search. "%";
+
             $stmt = $conn->prepare("SELECT * FROM tasks WHERE user_id = ? AND DATE(due_date) > CURDATE() AND (title LIKE ? OR description LIKE ?)");
             $stmt->bind_param("iss" , $user_id , $searchTerm , $searchTerm);
         }
+
+   
+
+
+    
 }elseif ($filter === "completed"){
     if($search === ""){
+
     $stmt = $conn->prepare("SELECT * FROM tasks WHERE user_id = ? AND status = 'completed' ");
     $stmt->bind_param("i" , $user_id);
-    }else{
+    }
+
+    else{
+
         $searchTerm = "%" . $search . "%";
+
         $stmt = $conn->prepare("SELECT * FROM tasks WHERE user_id = ? AND status = 'completed' AND (title LIKE ? OR description LIKE ?)");           
         $stmt ->bind_param("iss" , $user_id , $searchTerm , $searchTerm);
+
     }
-} else {
+
+    }
+
+
+else {
     $stmt = $conn ->prepare("SELECT * FROM tasks WHERE user_id = ?");
-    $stmt ->bind_param("i" , $user_id);
+    $stmt->bind_param("i" , $user_id);
 }
 
 $stmt->execute();
-$tasks = $stmt->get_result();
 
-?>
-
+$result = $stmt->get_result();
+ 
+ 
+ 
+ 
+ ?>
 <!-- Header  -->
- <header>
+<header>
 
     <div class="main-header">
 
-        <a href="dashboard.php"><img src="./assets/logo.png" alt="" class="logo"></a>
+        <a href="dashboard.php"><img href="sdfsdf.com" src="./assets/logo.png" alt="" class="logo"></a>
         
         <div class="header-btn">
             <img src="assets/uploads/<?php echo htmlspecialchars($user["pfp"]); ?>" alt="" class="h-pfp">
@@ -120,7 +152,7 @@ $tasks = $stmt->get_result();
         $currenPage = basename($_SERVER["PHP_SELF"]);
     ?>
     <div class="menu">
-        <a href="https://taskmaster-tarhfam.vercel.app" target="_blank" class="item"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1c1c1c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Landing</a>
+        <a href="taskmaster.php" class="item"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1c1c1c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Dashboard</a>
         <a href="dashboard.php" class="item <?php echo $currenPage === 'dashboard.php' ? 'active' : '';?> "> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1c1c1c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-sort-ascending-icon lucide-list-sort-ascending"><path d="M3 19h18"/><path d="M15 12H3"/><path d="M9 5H3"/></svg> Tasks</a>
         <a href="settings.php" class="item <?php echo $currenPage === 'settings.php' ? 'active' : '';?> "> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1c1c1c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt-icon lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="4"/></svg> Settings</a>
     </div>
@@ -131,61 +163,81 @@ $tasks = $stmt->get_result();
     <div class="tasks">
         <div class="tasks-header">
             <h3 class="title">My Tasks</h3>
-            <a href="add.php" class="new-task">New Task</a>
+                <button id="btn" class="addtask-btn">New Task</button>
         </div>
 
-        <div class="filters">
-            <button data-filter="all" class="taskt <?php echo $filter === "all" ? 'active' : '';?>">All</button>
-            <button data-filter="today" class="taskt <?php echo $filter === "today" ? 'active' : ''; ?>">Today</button>
-            <button data-filter="upcoming" class="taskt <?php echo $filter === "upcoming" ? 'active' : ''; ?> " >Upcoming</button>
-            <button data-filter="completed" class="taskt <?php echo $filter === "completed" ? 'active' : ''; ?>">Completed</button>
-        </div>
+        <!--   titles      -->
 
+                <div class="task-titles">
+            <button   data-filter="all" class="taskt <?php echo $filter === "all" ? 'active' : '';?>">All</button>
+            <button  data-filter="today" class="taskt <?php echo $filter === "today" ? 'active' : ''; ?>">Today</button>
+            <button data-filter="upcoming"  class="taskt <?php echo $filter === "upcoming" ? 'active' : ''; ?> " >Upcoming</button>
+            <button data-filter="completed"  class="taskt <?php echo $filter === "completed" ? 'active' : ''; ?>">Completed</button>
+            
+    </div>
+
+
+<!----------------------- TASK LIST -->
+
+        <div class="list">
         <div class="search-box">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#636387" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>        <input type="search" id="search" name="search" placeholder="Search tasks" value="<?php echo htmlspecialchars($search); ?>" class="search">
+
         </div>
 
-        <div class="task-list">
-            <?php while($task = $tasks->fetch_assoc()): ?>
-            <div class="inpt">
-                <div class="task-info">
-                    <h4 class="task-title"><?php echo htmlspecialchars($task["title"]); ?></h4>
-                    <p class="task-des"><?php echo htmlspecialchars($task["description"]); ?></p>
+        <!--    TASK LIST     -->
+
+        <div class="list1">
+            <?php while ($task = $result->fetch_assoc()) { ?>
+
+        <div class="inpt">
+            <div class="inptl">
+                
+                <div class="txt">
+                    <h4 class="h4l">
+                    <?php echo $task["title"]; ?>
+                </h4>
+
+                <p class="pl">
+                    <?php echo $task["description"]; ?>
+                </p>
                 </div>
-                <div class="task-actions">
-                    <button class="delete-btn" data-id="<?php echo $task["id"]; ?>">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                    </button>
-                    <input type="checkbox" data-id="<?php echo $task["id"]; ?>" <?php echo $task["status"] === "completed" ? "checked" : ""; ?>>
+                <div class="icons">
+                <svg xmlns="http://www.w3.org/2000/svg" data-id="<?php echo $task["id"]; ?>" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff2929" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-x-icon lucide-badge-x delete "><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><line x1="15" x2="9" y1="9" y2="15"/><line x1="9" x2="15" y1="9" y2="15"/></svg>
+                <input type="checkbox"data-id="<?php echo $task["id"]; ?>" <?php echo $task["status"] === "completed" ? "checked" : "";?>>
                 </div>
+              
+
             </div>
-            <?php endwhile; ?>
         </div>
+
+    <?php } ?>
+ 
+        </div>
+
     </div>
+
+    </div>
+
+
 </div>
-
 <script>
-// Filter buttons
-document.querySelectorAll(".taskt").forEach(btn => {
-    btn.addEventListener("click", function() {
-        const filter = this.getAttribute("data-filter");
-        const search = document.getElementById("search").value;
-        window.location.href = `dashboard.php?filter=${filter}&search=${encodeURIComponent(search)}`;
-    });
-});
 
-// Search
-document.getElementById("search").addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-        const filter = document.querySelector(".taskt.active")?.getAttribute("data-filter") || "all";
-        window.location.href = `dashboard.php?filter=${filter}&search=${encodeURIComponent(this.value)}`;
-    }
-});
+   const btn = document.getElementById('btn')
 
-// Toggle status
-document.querySelectorAll("input[type=checkbox]").forEach(checkbox => {
-    checkbox.addEventListener("change", function() {
-        const taskId = this.getAttribute("data-id");
+   btn.onclick = function(){
+        window.location.href = "add.php"
+   }
+
+
+
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+checkboxes.forEach(function(checkbox) {
+
+    checkbox.addEventListener('change', function() {
+
+        const taskId = this.dataset.id;
         const status = this.checked ? "completed" : "pending";
 
         fetch("update_task.php", {
@@ -195,19 +247,60 @@ document.querySelectorAll("input[type=checkbox]").forEach(checkbox => {
             },
             body: `task_id=${taskId}&status=${status}`
         });
+
     });
+
 });
 
-// Delete task
-document.querySelectorAll(".delete-btn").forEach(button => {
+
+
+    const filters = document.querySelectorAll(".taskt")
+
+    filters.forEach(function(filter){
+        filter.addEventListener("click" , function(){
+            const filtername = this.dataset.filter
+            window.location.href= `dashboard.php?filter=${filtername}`
+        })
+    })
+
+
+        // search
+
+        const search = document.getElementById("search")
+
+        search.addEventListener("keydown" , function(event){
+            if(event.key ==="Enter"){
+              const searchValue = this.value  
+              
+              const params = new URLSearchParams(window.location.search)
+
+              const filter = params.get("filter") || "all"
+
+              window.location.href = `dashboard.php?filter=${filter}&search=${searchValue}`
+            }
+        })
+
+            // ===========    delete button     ===============
+
+                // =========== DELETE BUTTON ===============
+
+const deleteButtons = document.querySelectorAll(".delete")
+
+deleteButtons.forEach(function(button) {
+
     button.addEventListener("click", function() {
-        const taskid = this.getAttribute("data-id");
+
+        const taskid = this.dataset.id;
+
+        console.log(taskid);
 
         fetch("delete-task.php", {
             method: "POST",
+
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
+
             body: `task_id=${taskid}`
         })
         .then(function(response) {

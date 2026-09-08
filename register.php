@@ -8,109 +8,200 @@
     <link rel="stylesheet" href="reset.css">
 </head>
 <body>
+    
 
+
+   
+
+<!--      Validation        -->
 <?php
-require "db.php";
-session_start();
+
+    require "db.php";
+
+        
 
 function test_input($data){
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
+
     return $data;
+
 }
 
-$usernameErr = "";
-$passwordErr = "";
-$emailErr = "";
 
+$allowedimgtypes = ["image/jpeg" , "image/png" , "image/webp"];
+$pfpsize = 2 * 1024 * 1024;
+
+
+$usernameErr = "";
+$pfpErr = "";
+$passwordErr = "";
+
+$pfp = "";
 $username = "";
 $password = "";
-$email = "";
-
+$regsuc = null;
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
+   
 
     if (empty($_POST["username"])){
         $usernameErr = "* Pls enter your name";
     }else{
         $username = test_input($_POST["username"]);
+
         if(strlen($username) < 5){
-            $usernameErr = " * Enter at least 5 characters";
-        }
+        $usernameErr = " * Enter at least 5 characters";
     }
 
-    if(empty($_POST["email"])){
-        $emailErr = "* Pls enter your email";
-    }else{
-        $email = test_input($_POST["email"]);
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $emailErr = "* Invalid email format";
-        }
-    }
+        } 
+
+
+    if ($_FILES["pfp"]["error"] === UPLOAD_ERR_NO_FILE ){
+        $pfpErr = "* Pls upload a picture";
+    }else{      
+            if (!in_array($_FILES["pfp"]["type"] , $allowedimgtypes)){
+                $pfpErr = "* You can only add image";
+            } else{
+              if ($_FILES["pfp"]["size"] > $pfpsize ){
+                $pfpErr = "* Only photos under 2 MB are allowed";
+              }else{
+
+    $pfp = $_FILES["pfp"]["name"];
+
+    move_uploaded_file(
+        $_FILES["pfp"]["tmp_name"],
+        "assets/uploads/" . $_FILES["pfp"]["name"]
+    );
+}
+            }
+
+        } 
 
     if(empty($_POST["password"])){
         $passwordErr = "* Pls enter your password";
     }else{
         $password = test_input($_POST["password"]);
-        if(strlen($password) < 6){
-            $passwordErr = "* Password must be at least 6 characters";
-        }
     }
 
-    if ($usernameErr == "" && $passwordErr == "" && $emailErr == ""){
 
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
-        $stmt->bind_param("ss" , $username, $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        if ($pfpErr == "" && $usernameErr == "" && $passwordErr == ""){
 
-        if ($result->num_rows > 0){
-            echo "Username or email already exists";
+            $stmt = $conn->prepare("INSERT INTO users (pfp , username , password) VALUES (? , ? , ?) ");
+    $stmt->bind_param("sss" , $pfp , $username , $password);
+
+
+    if ($stmt -> execute()){
+            $regsuc = true;
         }else{
-            $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $username, $email, $password);
-            $stmt->execute();
-
-            header("location: login.php");
-            exit;
+            $regsuc = false;
         }
-    }
+
+        }
+
+
+        
+
+
+        
 }
 ?>
 
-<header>
+<!--        Header         -->
+     <header>
+
     <div class="main-header">
-        <a href="dashboard.php"><img src="./assets/logo.png" alt="" class="logo"></a>
+
+        <a href="dashboard.php"><img href="sdfsdf.com" src="./assets/logo.png" alt="" class="logo"></a>
+        
         <div class="header-btn">
-        </div>
-    </div>
+    
+</a>
 </header>
 
-<div class="reg">
+
+        <!--    Section       -->
+
+    <div class="reg">
+
+
+<!--  Form    -->
+
     <div class="form-div">
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <div class="inp">
-                <h2 class="text">Create your account</h2>
 
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" value="<?php echo $username; ?>">
-                <span class="error"><?php echo $usernameErr; ?></span>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="<?php echo $email; ?>">
-                <span class="error"><?php echo $emailErr; ?></span>
+    <form     enctype="multipart/form-data"
+  method="POST"  action="<?php  echo htmlspecialchars($_SERVER["PHP_SELF"]);  ?>">
+               
+    <div class="inp1">
 
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" value="<?php echo $password; ?>">
-                <span class="error"><?php echo $passwordErr; ?></span>
+        <img class="pfpa" id="avatarPreview" src="./assets/Oval.png" alt="pfpa">
+        <input type="file"  id="pfp"  name="pfp" accept="image/jpeg,image/png,image/webp" >
+     <label for="pfp"> Your Aatar  </label>
+        <span class="eror"> <?php echo $pfpErr ?> </span>
+          </div>
+    
+          <div class="inp">
 
-                <input type="submit" name="submit" value="Register" class="sub">
+     <label for="username"> Username  </label>
+        <input type="text"  id="username"  name="username" value="<?php echo $username; ?>" >
+        <span class="eror"> <?php echo $usernameErr ?> </span>
+          </div>
 
-                <p class="acc">Already have an account? <a href="login.php">Login</a></p>
-            </div>
-        </form>
+
+    
+    <div class="inp">
+
+         <label for="password"> Password  </label>
+        <input type="password"  id="password"  name="password">
+        <span class="eror" > <?php echo $passwordErr ?> </span>
+
     </div>
-</div>
+        
+    <button class="a" type="submit">Register</button>
 
+        <h3 class="regal"> You alredy have any account ? <a class= "regals "href="login.php" class="regals">Login</a></h3>
+
+
+    </form>
+
+    </div>
+
+    <?php
+  if ($regsuc === true){
+    ?>
+     <h2 class="regh2">
+            Your registration was successful
+        </h2> 
+  <?php
+    }elseif($regsuc === false){
+    ?>    
+    <h2 class="regh2">
+            Registration failed
+        </h2> 
+    <?php
+    }
+   
+    ?>
+
+    </div>
+
+
+<script>
+
+const pfpinput = document.getElementById("pfp");
+const avatarPreview = document.getElementById("avatarPreview");
+
+pfpinput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (file) {
+        avatarPreview.src = URL.createObjectURL(file);
+    }
+
+});
+
+</script>
 </body>
 </html>

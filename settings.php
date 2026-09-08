@@ -122,7 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $currenPage = basename($_SERVER["PHP_SELF"]);
     ?>
     <div class="menu">
-        <a href="https://taskmaster-tarhfam.vercel.app" target="_blank" class="item"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1c1c1c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Landing</a>
+        <a href="taskmaster.php" class="item"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1c1c1c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Dashboard</a>
         <a href="dashboard.php" class="item <?php echo $currenPage === 'dashboard.php' ? 'active' : '';?> "> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1c1c1c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-sort-ascending-icon lucide-list-sort-ascending"><path d="M3 19h18"/><path d="M15 12H3"/><path d="M9 5H3"/></svg> Tasks</a>
         <a href="settings.php" class="item <?php echo $currenPage === 'settings.php' ? 'active' : '';?> "> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1c1c1c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt-icon lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="4"/></svg> Settings</a>
     </div>
@@ -186,3 +186,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     </script>
 </body>
+        
+    
